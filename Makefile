@@ -15,25 +15,25 @@ help: ## Show available targets
 	@printf '$(BOLD)$(YELLOW)%s$(RESET)\n' 'yandex-imap-sync'
 	@echo
 	@printf '$(BOLD)%s$(RESET)\n' 'Available targets:'
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "$(CYAN)%-15s$(RESET) %s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  $(CYAN)%-15s$(RESET) %s\n", $$1, $$2}'
 	@echo
 	@make quickstart
 
 quickstart: ## Show the safe migration run order
 	@printf '$(BOLD)%s$(RESET)\n' 'Safe migration run order:'
-	@printf '$(YELLOW)1.$(RESET) %s\n' 'Prepare .env from .env.example and fill in app passwords.'
-	@printf '$(YELLOW)2.$(RESET) %s\n' 'Check local scripts:'
-	@printf '   $(CYAN)%s$(RESET)\n' 'make test'
-	@printf '$(YELLOW)3.$(RESET) %s\n' 'Build the Docker image:'
-	@printf '   $(CYAN)%s$(RESET)\n' 'make build'
-	@printf '$(YELLOW)4.$(RESET) %s\n' 'Check authentication without migrating messages:'
-	@printf '   $(CYAN)%s$(RESET)\n' 'make run-logs PARAMS="--justlogin"'
-	@printf '$(YELLOW)5.$(RESET) %s\n' 'Check folders without changing the target mailbox:'
-	@printf '   $(CYAN)%s$(RESET)\n' 'make run-logs PARAMS="--dry --justfolders --automap --useheader Message-Id --errorsmax 5"'
-	@printf '$(YELLOW)6.$(RESET) %s\n' 'Run the full migration:'
-	@printf '   $(CYAN)%s$(RESET)\n' 'make run-logs PARAMS="--automap --useheader Message-Id --errorsmax 5"'
+	@printf '  $(YELLOW)1.$(RESET) %s\n' 'Prepare .env from .env.example and fill in app passwords.'
+	@printf '  $(YELLOW)2.$(RESET) %s\n' 'Check local scripts:'
+	@printf '     $(CYAN)%s$(RESET)\n' 'make test'
+	@printf '  $(YELLOW)3.$(RESET) %s\n' 'Build the Docker image:'
+	@printf '     $(CYAN)%s$(RESET)\n' 'make build'
+	@printf '  $(YELLOW)4.$(RESET) %s\n' 'Check authentication without migrating messages:'
+	@printf '     $(CYAN)%s$(RESET)\n' 'make run-logs PARAMS="--justlogin"'
+	@printf '  $(YELLOW)5.$(RESET) %s\n' 'Check folders without changing the target mailbox:'
+	@printf '     $(CYAN)%s$(RESET)\n' 'make run-logs PARAMS="--dry --justfolders --automap --useheader Message-Id --errorsmax 5"'
+	@printf '  $(YELLOW)6.$(RESET) %s\n' 'Run the full migration:'
+	@printf '     $(CYAN)%s$(RESET)\n' 'make run-logs PARAMS="--automap --useheader Message-Id --errorsmax 5"'
 	@printf '%s\n' ''
-	@printf '$(RED)%s$(RESET)\n' 'Do not add --delete1 or --delete2 unless you want to delete messages.'
+	@printf '$(RED)!! Do not add $(YELLOW)%s$(RED) or $(YELLOW)%s$(RED) unless you want to delete messages.$(RESET)\n' '--delete1' '--delete2'
 
 build: ## Build the Docker image
 	docker build -t $(IMAGE_NAME) .
