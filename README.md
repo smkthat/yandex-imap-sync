@@ -13,6 +13,7 @@
   - [3. Run](#3-run)
     - [Overriding Parameters](#overriding-parameters)
     - [Available `PARAMS` Modes](#available-params-modes)
+    - [Underlying `imapsync` Reference](#underlying-imapsync-reference)
     - [Yandex Mailbox Modes](#yandex-mailbox-modes)
   - [4. Forward New Messages](#4-forward-new-messages)
     - [Recommended: Yandex 360 Admin Rule](#recommended-yandex-360-admin-rule)
@@ -117,6 +118,12 @@ Main option notes:
 - `--justfolders` works only with folders and does not migrate messages.
 
 Do not add `--delete1` or `--delete2` unless you explicitly want to delete messages from the source or target mailbox.
+
+### Underlying `imapsync` Reference
+
+This Docker wrapper downloads and runs [`imapsync`](https://imapsync.lamiral.info/), a Perl command-line tool for one-way IMAP mailbox transfers. The wrapper builds the required `--host1`, `--user1`, `--password1`, `--host2`, `--user2`, and `--password2` arguments from `.env`, then appends `PARAMS` unchanged.
+
+The modes above are safe presets for this project, not the full `imapsync` interface. `imapsync` supports many more arguments for folder mapping, folder selection, message filtering, deletion behavior, logging, authentication, OAuth, and debugging. The full list of available arguments is in the official [`imapsync` README OPTIONS section](https://imapsync.lamiral.info/README). The official [Unix tutorial](https://imapsync.lamiral.info/doc/TUTORIAL_Unix.html) is also useful for understanding dry-runs, folder-only runs, and why testing with a destination account first is safer.
 
 ### Yandex Mailbox Modes
 
